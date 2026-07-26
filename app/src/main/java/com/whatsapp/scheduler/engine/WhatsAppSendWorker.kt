@@ -12,6 +12,7 @@ import com.whatsapp.scheduler.data.model.FailureReason
 import com.whatsapp.scheduler.data.model.RepeatType
 import com.whatsapp.scheduler.data.model.ScheduleStatus
 import com.whatsapp.scheduler.data.model.ScheduledMessage
+import com.whatsapp.scheduler.data.repository.SchedulerRepository
 import com.whatsapp.scheduler.service.SendTask
 import com.whatsapp.scheduler.service.WhatsAppAccessibilityService
 import com.whatsapp.scheduler.util.NotificationHelper
@@ -183,7 +184,7 @@ class WhatsAppSendWorker(
     }
 
     private suspend fun handleRecurringSchedule(
-        repository: com.whatsapp.scheduler.data.repository.SchedulerRepository,
+        repository: SchedulerRepository,
         currentMessage: ScheduledMessage
     ) {
         val repeatTypeEnum = try {
