@@ -324,7 +324,7 @@ fun CreateEditScheduleScreen(
                         FilterChip(
                             selected = formState.repeatType == repeat.name,
                             onClick = { viewModel.updateRepeatType(repeat.name) },
-                            label = { Text(repeat.name.lowercase().capitalize(Locale.ROOT)) },
+                            label = { Text(repeat.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }) },
                             modifier = Modifier.weight(1f)
                         )
                     }

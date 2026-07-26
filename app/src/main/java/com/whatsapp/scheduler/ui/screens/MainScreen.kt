@@ -200,7 +200,7 @@ fun MainScreen(
                     FilterChip(
                         selected = uiState.filterStatus == filter,
                         onClick = { viewModel.setFilterStatus(filter) },
-                        label = { Text(filter.lowercase().capitalize(Locale.ROOT)) }
+                        label = { Text(filter.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }) }
                     )
                 }
             }
@@ -364,7 +364,7 @@ fun ScheduleCardItem(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = message.repeatType.lowercase().capitalize(Locale.ROOT),
+                                text = message.repeatType.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
