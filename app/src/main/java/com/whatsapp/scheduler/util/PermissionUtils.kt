@@ -1,15 +1,29 @@
 package com.whatsapp.scheduler.util
 
+import android.Manifest
 import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
+import androidx.core.content.ContextCompat
 import com.whatsapp.scheduler.service.WhatsAppAccessibilityService
 
 object PermissionUtils {
+
+    fun isNotificationPermissionGranted(context: Context): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+    }
 
     fun isAccessibilityServiceEnabled(context: Context): Boolean {
         val expectedService = "${context.packageName}/${WhatsAppAccessibilityService::class.java.canonicalName}"
