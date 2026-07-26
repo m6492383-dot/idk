@@ -34,7 +34,7 @@ interface MessageDao {
     suspend fun updateMessage(message: ScheduledMessage)
 
     @Query("UPDATE messages SET status = :status, failure_reason = :failureReason, updated_at = :updatedAt WHERE id = :id")
-    suspend fun updateStatus(id: Long, status: String, failureReason: String?, updatedAt: Long = System.currentTimeMillis())
+    suspend fun updateStatus(id: Long, status: String, failureReason: String?, updatedAt: Long)
 
     @Delete
     suspend fun deleteMessage(message: ScheduledMessage)
