@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.whatsapp.scheduler.data.model.FailureReason
+import java.util.Locale
 
 data class SendTask(
     val messageId: Long,
@@ -170,9 +171,9 @@ class WhatsAppAccessibilityService : AccessibilityService() {
     }
 
     private fun findSendButton(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
-        val contentDesc = node.contentDescription?.toString()?.lowercase() ?: ""
-        val text = node.text?.toString()?.lowercase() ?: ""
-        val viewId = node.viewIdResourceName?.lowercase() ?: ""
+        val contentDesc = node.contentDescription?.toString()?.lowercase(Locale.ROOT) ?: ""
+        val text = node.text?.toString()?.lowercase(Locale.ROOT) ?: ""
+        val viewId = node.viewIdResourceName?.lowercase(Locale.ROOT) ?: ""
 
         if (contentDesc.contains("send") || text == "send" || viewId.contains("send")) {
             return if (node.isClickable) node else findClickableParent(node)
