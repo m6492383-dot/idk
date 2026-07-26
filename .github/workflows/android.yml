@@ -21,9 +21,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+          cache: 'gradle'
 
       - name: Grant execute permission and sanitize line endings
         run: |
@@ -31,12 +29,13 @@ jobs:
           chmod +x gradlew
 
       - name: Build Debug APK with Gradle Wrapper
-        run: ./gradlew assembleDebug --stacktrace --info
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
-        if: always()
+        if: success()
         with:
           name: WhatsApp-Scheduler-Debug-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
+          if-no-files-found: warn
